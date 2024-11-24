@@ -1,7 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../db");
 
-// Define Note Model
 const Note = sequelize.define("Note", {
   title: {
     type: DataTypes.STRING,
@@ -17,15 +16,15 @@ const Note = sequelize.define("Note", {
   },
   created_at: {
     type: DataTypes.DATE,
-    defaultValue: Sequelize.NOW, // Default current date/time
+    defaultValue: Sequelize.NOW,
   },
   updated_at: {
     type: DataTypes.DATE,
-    defaultValue: Sequelize.NOW, // Default current date/time
+    defaultValue: Sequelize.NOW,
   },
   completed: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false, // Default value for completed
+    defaultValue: false,
   },
 });
 

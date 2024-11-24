@@ -6,7 +6,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn("Notes", "completed", {
       type: Sequelize.BOOLEAN,
-      defaultValue: false, // Default value is false
+      defaultValue: false,
     });
   },
   down: async (queryInterface, Sequelize) => {

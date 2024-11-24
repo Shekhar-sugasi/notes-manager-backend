@@ -1,18 +1,14 @@
-// Inside your noteRoutes.js file
-
 const express = require("express");
 const Joi = require("joi");
 const Note = require("../models/note");
 const router = express.Router();
 
-// Validation Schema
 const noteSchema = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
   category: Joi.string().valid("Work", "Personal", "Others").default("Others"),
 });
 
-// Create a new note
 router.post("/", async (req, res) => {
   try {
     const { error, value } = noteSchema.validate(req.body);
@@ -29,7 +25,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Fetch all notes
 router.get("/", async (req, res) => {
   const { category, title } = req.query;
   const where = {};
@@ -47,38 +42,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-/* Update a note
-router.put("/:id", async (req, res) => {
-  try {
-    const { error, value } = noteSchema.validate(req.body);
-    if (error) return res.status(400).json({ error: error.details[0].message });
-
-    const note = await Note.findByPk(req.params.id);
-    if (!note) return res.status(404).json({ error: "Note not found" });
-
-    await note.update(value);
-    res.status(200).json(note);
-  } catch (err) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-// Delete a note
-router.delete("/:id", async (req, res) => {
-  try {
-    const note = await Note.findByPk(req.params.id);
-    if (!note) return res.status(404).json({ error: "Note not found" });
-
-    await note.destroy();
-    res.status(204).end();
-  } catch (err) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-*/
-// Inside your noteRoutes.js file
-
-// Toggle completed status
 router.put("/toggle/:id", async (req, res) => {
   try {
     const note = await Note.findByPk(req.params.id);
@@ -94,9 +57,6 @@ router.put("/toggle/:id", async (req, res) => {
   }
 });
 
-// Inside your noteRoutes.js file
-
-// Update a note
 router.put("/:id", async (req, res) => {
   try {
     const { error, value } = noteSchema.validate(req.body);
@@ -113,14 +73,13 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete a note
 router.delete("/:id", async (req, res) => {
   try {
     const note = await Note.findByPk(req.params.id);
     if (!note) return res.status(404).json({ error: "Note not found" });
 
     await note.destroy();
-    res.status(204).end(); // No content
+    res.status(204).end();
   } catch (err) {
     console.error("Error deleting note:", err);
     res.status(500).json({ error: "Internal Server Error" });
